@@ -13,7 +13,4 @@ public class MainActivity extends AppCompatActivity {
     }
 <<<<<<<<< Temporary merge branch 1
     int i = 2+2;
-=========
-    int i=2+2;
->>>>>>>>> Temporary merge branch 2
 }
