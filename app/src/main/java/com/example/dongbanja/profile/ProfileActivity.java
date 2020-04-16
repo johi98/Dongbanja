@@ -11,10 +11,22 @@ import com.example.dongbanja.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);  // layout xml 과 자바파일을 연결
+
+        /*String name = ProfileReviseActivity.name;
+        Toast toast = Toast.makeText(getApplicationContext(),
+                name, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+
+         */
+        ProfileReviseActivity Info = new ProfileReviseActivity();
+        TextView name1 = (TextView) findViewById(R.id.name) ;
+        name1.setText(Info.name13);
 
 
 
@@ -26,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
                         getApplicationContext(), // 현재 화면의 제어권자
                         ProfileReviseActivity.class); // 다음 넘어갈 클래스 지정
                 startActivity(intent); // 다음 화면으로 넘어간다
+                finish();
             }
         });
         } // end onCreate()
