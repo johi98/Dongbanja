@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dongbanja.profile.ProfileActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.acitivity_start);
 
 //시작
+        /*
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -24,9 +27,10 @@ public class MainActivity extends AppCompatActivity {
         };
         Button button1 = (Button) findViewById(R.id.start_button);
         button1.setOnClickListener(listener);
+        */
 
 
-/*
+
         Button b = (Button)findViewById(R.id.start_button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent); // 다음 화면으로 넘어간다
             }
         });
- */
+
 
     }
 
