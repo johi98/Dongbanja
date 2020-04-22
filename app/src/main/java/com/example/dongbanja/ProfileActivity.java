@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,18 +17,27 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "ProfileActivity";
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mPostReference;
 
     //view objects
     private TextView textViewUserEmail;
     private Button buttonLogout;
     private TextView textivewDelete;
 
+    private EditText editText_Nickname;
+    private Button button_nickname;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +48,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         textViewUserEmail = (TextView) findViewById(R.id.textviewUserEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         textivewDelete = (TextView) findViewById(R.id.textviewDelete);
-
+        editText_Nickname = (EditText)findViewById(R.id.editTextNickname);
+        button_nickname = (Button)findViewById(R.id.buttonNickname);
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
         //유저가 로그인 하지 않은 상태라면 null 상태이고 이 액티비티를 종료하고 로그인 액티비티를 연다.
@@ -56,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         //logout button event
         buttonLogout.setOnClickListener(this);
         textivewDelete.setOnClickListener(this);
-
+        button_nickname.setOnClickListener(this);
 
     }
 
@@ -94,5 +105,29 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             });
             alert_confirm.show();
         }
+
+        if (view ==button_nickname){
+
+            name = editText_Nickname.getText().toString();
+
+            postFirebaseDatabase(true);
+
+            editText_Nickname.requestFocus();
+            editText_Nickname.setCursorVisible(true);
+
+        }
+    }
+
+
+    public void postFirebaseDatabase(boolean add){
+        mPostReference = FirebaseDatabase.getInstance().getReference();
+        Map<String, Object> childUpdates = new HashMap<>();
+        Map<String, Object> postValues = null;
+        if(add){
+            FirebasePost post = new FirebasePost(name);
+            postValues = post.toMap();
+        }
+        childUpdates.put("/id_list/" + name, postValues);
+        mPostReference.updateChildren(childUpdates);
     }
 }
