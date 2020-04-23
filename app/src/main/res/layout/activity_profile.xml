@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffe6b3"
+
     tools:context=".ProfileActivity">
 
     <LinearLayout
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_gravity="center_horizontal"
-            android:text="입력" />
+            android:text="id_list 추가" />
 
     </LinearLayout>
 </RelativeLayout>
