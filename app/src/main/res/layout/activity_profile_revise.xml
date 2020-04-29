@@ -7,26 +7,29 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/edittextView"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:gravity="center"
-        android:text="나의 프로필"
+        android:text="프로필 저장하기"
         android:textSize="30sp" />
 
     <ImageView
         android:id="@+id/imageview"
-        android:layout_width="165dp"
-        android:layout_height="160dp"
-        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
         app:srcCompat="@drawable/ic_launcher_foreground" />
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="visible">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -42,18 +45,14 @@
                     android:text="이름"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/name"
+                <EditText
+                    android:id="@+id/editname"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:gravity="center_vertical"
-                    android:inputType="textPersonName"
-                    android:text="이름 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#333333"
-                    android:textSize="18sp" />
+                    android:hint="이름을 입력하세요"
+                    android:inputType="textPersonName" />
 
             </LinearLayout>
 
@@ -69,16 +68,42 @@
                     android:text="전화번호"
                     android:textSize="24sp" />
 
-
-                <TextView
-                    android:id="@+id/phonenumber"
+                <Spinner
+                    android:id="@+id/phonefirst"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="전화 번호 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#333333"
-                    android:textSize="18sp" />
+                    android:entries="@array/번호앞자리" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/phonesecond"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/phonethird"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -93,15 +118,17 @@
                     android:text="학력"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/education"
-                    android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/editeducation"
+                    android:layout_width="125dp"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#333333"
-                    android:textSize="18sp" />
+                    android:entries="@array/초중고" />
+
+                <Spinner
+                    android:id="@+id/editing"
+                    android:layout_width="125dp"
+                    android:layout_height="match_parent"
+                    android:entries="@array/졸업여부" />
 
             </LinearLayout>
 
@@ -117,18 +144,13 @@
                     android:text="키"
                     android:textSize="24sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/length"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:ems="10"
-                    android:gravity="center_vertical"
-                    android:inputType="textPersonName"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#CAAEAE"
-                    android:textSize="18sp" />
+                    android:hint="키 입력"
+                    android:inputType="textPersonName" />
 
             </LinearLayout>
 
@@ -144,18 +166,11 @@
                     android:text="보유재산"
                     android:textSize="24sp" />
 
-                <TextView
+                <Spinner
                     android:id="@+id/money"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center_vertical"
-                    android:inputType="textPersonName"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#CAAEAE"
-                    android:textSize="18sp" />
+                    android:entries="@array/보유재산" />
 
             </LinearLayout>
 
@@ -171,18 +186,14 @@
                     android:text="직업"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/job"
+                <EditText
+                    android:id="@+id/editjob"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:gravity="center_vertical"
-                    android:inputType="textPersonName"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#CAAEAE"
-                    android:textSize="18sp" />
+                    android:hint="직업을 입력하세요"
+                    android:inputType="textPersonName" />
 
             </LinearLayout>
 
@@ -198,18 +209,11 @@
                     android:text="종교"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/religion"
+                <Spinner
+                    android:id="@+id/editreligion"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center_vertical"
-                    android:inputType="textPersonName"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#CAAEAE"
-                    android:textSize="18sp" />
+                    android:entries="@array/종교" />
 
             </LinearLayout>
 
@@ -225,18 +229,11 @@
                     android:text="연봉"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/salary"
+                <Spinner
+                    android:id="@+id/editsalary"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center_vertical"
-                    android:inputType="textPersonName"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#CAAEAE"
-                    android:textSize="18sp" />
+                    android:entries="@array/연봉" />
 
             </LinearLayout>
 
@@ -252,19 +249,39 @@
                     android:text="형제관계"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/family"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                <EditText
+                    android:id="@+id/man"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:gravity="center_vertical"
                     android:inputType="textPersonName"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="24sp" />
 
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="남"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/women"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="녀"
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
@@ -277,20 +294,20 @@
                     android:layout_width="125dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="흡연/음주"
+                    android:text="흡연,/음주"
                     android:textSize="24sp" />
 
-                <TextView
+                <Spinner
                     android:id="@+id/editdurnk"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:ems="10"
-                    android:gravity="center_vertical"
-                    android:inputType="textPersonName"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#CAAEAE"
-                    android:textSize="18sp" />
+                    android:entries="@array/술" />
+
+                <Spinner
+                    android:id="@+id/editsmoke"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:entries="@array/담배" />
 
             </LinearLayout>
 
@@ -306,35 +323,27 @@
                     android:text="거주 지역"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/living"
+                <Spinner
+                    android:id="@+id/editliving"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center_vertical"
-                    android:inputType="textPersonName"
-                    android:text="정보 없음"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#CAAEAE"
-                    android:textSize="18sp" />
+                    android:entries="@array/거주지역" />
+
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal" />
 
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/revise_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/revise_button"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:text="수정하기" />
-    </LinearLayout>
+        android:layout_gravity="bottom"
+        android:text="저장하기" />
 
 </LinearLayout>

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".FindActivity"></activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".SubActivity" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".ui.login.LoginActivity"

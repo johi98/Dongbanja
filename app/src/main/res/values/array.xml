@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="번호앞자리">
+        <item>010</item>
+        <item>011</item>
+        <item>02</item>
+    </string-array>
+
+    <string-array name="초중고">
+        <item>초등학교  </item>
+        <item>중학교  </item>
+        <item>고등학교  </item>
+        <item>대학교  </item>
+    </string-array>
+
+    <string-array name="졸업여부">
+        <item>휴학</item>
+        <item>재학</item>
+        <item>졸업</item>
+    </string-array>
+
+    <string-array name="보유재산">
+        <item>~ 1000만원</item>
+        <item>1000만원 ~ 5000만원</item>
+        <item>5000만원 ~ 1억</item>
+        <item>1억 ~ 5억</item>
+        <item>5억 이상</item>
+    </string-array>
+
+    <string-array name="종교">
+        <item>천주교</item>
+        <item>기독교</item>
+        <item>불교</item>
+        <item>기타(이슬람교, 힌두교 등)</item>
+    </string-array>
+
+    <string-array name="연봉">
+        <item>~1500만원</item>
+        <item>1500만원~3000만원</item>
+        <item>3000만원~5000만원</item>
+        <item>5000만원 이상</item>
+    </string-array>
+
+    <string-array name="술">
+        <item>마시지 않음  </item>
+        <item>1병 미만  </item>
+        <item>1병~3병  </item>
+        <item>3병 이상  </item>
+    </string-array>
+
+    <string-array name="담배">
+        <item>피지 않음</item>
+        <item>하루 한갑 미만</item>
+        <item>하루 한갑 이상</item>
+    </string-array>
+
+    <string-array name="거주지역">
+        <item>서울특별시</item>
+        <item>경기도</item>
+        <item>경상도</item>
+        <item>전라도</item>
+        <item>충청도</item>
+        <item>강원도</item>
+        <item>제주도</item>
+        <item>기타</item>
+    </string-array>
+
+
+
+</resources>
