@@ -11,5 +11,6 @@
         android:layout_height="wrap_content"
         android:text="프로필!!"
         tools:layout_editor_absoluteX="166dp"
-        tools:layout_editor_absoluteY="168dp" />
+        tools:layout_editor_absoluteY="168dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
