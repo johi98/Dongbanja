@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
 import java.util.Map;
-
+//데이터 전송
 @IgnoreExtraProperties
 public class FirebasePost {
  //   public String id;

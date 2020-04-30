@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class FindActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "FindActivity";
+    //비밀번호 찾는 액티비티
 
     //define view objects
     private EditText editTextUserEmail;

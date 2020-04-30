@@ -20,14 +20,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //define view objects
+    //정의
     EditText editTextEmail;
     EditText editTextPassword;
     Button buttonSignup;
     TextView textviewSingin;
     TextView textviewMessage;
     ProgressDialog progressDialog;
-    //define firebase object
+
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //initializig firebase auth object
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //그리고 profile 액티비티를 연다.
             startActivity(new Intent(getApplicationContext(), SubActivity.class)); //추가해 줄 ProfileActivity
         }
-        //initializing views
+        //views 찾기
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textviewSingin= (TextView) findViewById(R.id.textViewSignin);
@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
 
-        //button click event
+        //button click event 선언
         buttonSignup.setOnClickListener(this);
         textviewSingin.setOnClickListener(this);
     }
 
-    //Firebse creating a new user
+    //Firebse에 유저 추가
     private void registerUser(){
         //사용자가 입력하는 email, password를 가져온다.
         String email = editTextEmail.getText().toString().trim();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog.setMessage("등록중입니다. 기다려 주세요...");
         progressDialog.show();
 
-        //creating a new user
+        //아이디 생성
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
