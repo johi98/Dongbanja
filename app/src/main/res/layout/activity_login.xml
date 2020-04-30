@@ -11,12 +11,32 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".ui.login.LoginActivity">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="159dp"
+        android:layout_height="75dp"
+        android:textColor="#E91E63"
+        android:textSize="55dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="46dp"
+        tools:text="동반자" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="84dp"
+        android:layout_height="71dp"
+        app:srcCompat="@drawable/heart"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="242dp"
+        tools:layout_editor_absoluteY="46dp" />
+
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="236dp"
         android:layout_marginEnd="24dp"
 
         android:hint="@string/prompt_email"
@@ -32,7 +52,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
 
         android:hint="@string/prompt_password"
@@ -57,7 +76,7 @@
         android:background="#FFFFFF"
         android:enabled="false"
         android:text="@string/action_sign_in"
-        android:textColor="#0E0E0E"
+        android:textColor="#E91E63"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
