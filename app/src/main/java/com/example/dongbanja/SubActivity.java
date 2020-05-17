@@ -38,6 +38,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
     private EditText editText_Nickname;
     private Button button_nickname;
     private Button button_goProfile;
+    private Button button_goChat;
     String name;
 
     @Override
@@ -52,6 +53,8 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         editText_Nickname = (EditText)findViewById(R.id.editTextNickname);
         button_nickname = (Button)findViewById(R.id.buttonNickname);
         button_goProfile = (Button)findViewById(R.id.buttonGoProfile);
+        button_goChat = (Button)findViewById(R.id.buttonGoChat);
+
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
         //유저가 로그인 하지 않은 상태라면 null 상태이고 이 액티비티를 종료하고 로그인 액티비티를 연다.
@@ -71,6 +74,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         textivewDelete.setOnClickListener(this);
         button_nickname.setOnClickListener(this);
         button_goProfile.setOnClickListener(this);
+        button_goChat.setOnClickListener(this);
     }
 
     @Override
@@ -122,6 +126,14 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(
                     getApplicationContext(), // 현재 화면의 제어권자
                     ProfileActivity.class); // 다음 넘어갈 클래스 지정
+            startActivity(intent); // 다음 화면으로 넘어간다
+            finish();
+        }
+
+        if(view==button_goChat){
+            Intent intent = new Intent(
+                    getApplicationContext(), // 현재 화면의 제어권자
+                    WaitChat.class); // 다음 넘어갈 클래스 지정
             startActivity(intent); // 다음 화면으로 넘어간다
             finish();
         }
