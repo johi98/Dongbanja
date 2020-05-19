@@ -119,6 +119,15 @@ public class ProfileReviseActivity extends AppCompatActivity {
         });
     } // end onCreate()
 
+
+    private void prifileCheck()
+    {
+        if(name1==null)
+        {
+            
+        }
+    }
+
     //이미지 불러오기
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
