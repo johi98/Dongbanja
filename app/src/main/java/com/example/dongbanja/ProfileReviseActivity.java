@@ -3,12 +3,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +36,8 @@ public class ProfileReviseActivity extends AppCompatActivity {
     public static String family1;
     public static String drunksmoke1;
     public static String living1;
-
+    public static TextView profile_check;
+    public String man, women;
 
 
 
@@ -42,6 +45,10 @@ public class ProfileReviseActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_profile_revise);
+
+    System.out.println(name1);
+
+    profile_check = (TextView) findViewById(R.id.profile_check);
 
     //이미지 불러오기
         imageView = findViewById(R.id.imageview);
@@ -55,11 +62,14 @@ public class ProfileReviseActivity extends AppCompatActivity {
             }
         });
 
+
         Button c = (Button)findViewById(R.id.revise_button);
         c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
+
+
                 Spinner phone1 = (Spinner)findViewById(R.id.phonefirst);
                 Spinner edu = (Spinner)findViewById(R.id.editeducation);
                 Spinner edit = (Spinner)findViewById(R.id.editing);
@@ -89,8 +99,8 @@ public class ProfileReviseActivity extends AppCompatActivity {
 
                 money1 = money.getSelectedItem().toString();
 
-                String man = ((EditText)findViewById(R.id.man)).getText().toString();
-                String women = ((EditText)findViewById(R.id.women)).getText().toString();
+                man = ((EditText)findViewById(R.id.man)).getText().toString();
+                women = ((EditText)findViewById(R.id.women)).getText().toString();
                 family1 = man+" 남 "+women+" 여 ";
 
                 String drunk11 = drunk.getSelectedItem().toString();
@@ -110,23 +120,62 @@ public class ProfileReviseActivity extends AppCompatActivity {
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
                 toast.show();*/
 
-                Intent intent = new Intent(
-                        getApplicationContext(), // 현재 화면의 제어권자
-                        ProfileActivity.class); // 다음 넘어갈 클래스 지정
-                startActivity(intent); // 다음 화면으로 넘어간다
-                finish();
+
+
+
+
+                System.out.println(name1.length());
+            profileCheck();
             }
         });
     } // end onCreate()
 
-
-    private void prifileCheck()
+    private void profileCheck()
     {
-        if(name1==null)
+
+        if(name1.length() <= 0 )
         {
-            
+            profile_check.setVisibility(View.VISIBLE);
+            profile_check.setText("이름을 입력하십시오");
         }
+        else if(phonenumber1.length() <= 12 )
+        {
+            profile_check.setVisibility(View.VISIBLE);
+            profile_check.setText("전화번호를 재대로 입력하십시오");
+        }
+        else if(length1.length() <= 3 )
+        {
+            profile_check.setVisibility(View.VISIBLE);
+            profile_check.setText("키를 입력하십시오");
+        }
+        else if(job1.length() <= 0 )
+        {
+            profile_check.setVisibility(View.VISIBLE);
+            profile_check.setText("직업을 입력하십시오");
+        }
+        else if(man.length() <= 0 || women.length() <= 0)
+        {
+            profile_check.setVisibility(View.VISIBLE);
+            profile_check.setText("형제관계을 입력하십시오");
+        }
+        else
+        {
+            Intent intent = new Intent(
+                    getApplicationContext(), // 현재 화면의 제어권자
+                    ProfileActivity.class); // 다음 넘어갈 클래스 지정
+            startActivity(intent); // 다음 화면으로 넘어간다
+            finish();
+
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "회원정보 수정에 성공하였습니다.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM, 0, 200);
+            toast.show();
+
+        }
+
     }
+
+
 
     //이미지 불러오기
     @Override
