@@ -344,6 +344,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="저장하기" />
+        android:background="#FBF7F7"
+        android:text="저장하기"
+        android:textColor="#E91E63" />
 
 </LinearLayout>
