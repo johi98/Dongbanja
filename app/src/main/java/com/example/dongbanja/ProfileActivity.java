@@ -43,10 +43,12 @@ public class ProfileActivity extends AppCompatActivity {
 
             name.setText(profilereviseactivity.name1);
 
-            System.out.println(phonenumber.length());
-            if(phonenumber.length() > 8)
-            {phonenumber.setText(profilereviseactivity.phonenumber1);}
-            else{ phonenumber.setText("");}
+            final String phoneNumber1 = profilereviseactivity.phonenumber1;
+
+            phonenumber.setText(profilereviseactivity.phonenumber1);
+
+
+
 
 
             education.setText(profilereviseactivity.education1);

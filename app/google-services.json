@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "316130118218",
+    "firebase_url": "https://dongbanja-54fca.firebaseio.com",
+    "project_id": "dongbanja-54fca",
+    "storage_bucket": "dongbanja-54fca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316130118218:android:9f51aa1ac527c9ebecf4b3",
+        "android_client_info": {
+          "package_name": "com.example.dongbanja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316130118218-4o6l9q16tsp5eeplafl0hp52ouvg3dhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_NdXSaBjqzkLYBmPsqshXWd8PROUgPdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316130118218-4o6l9q16tsp5eeplafl0hp52ouvg3dhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
