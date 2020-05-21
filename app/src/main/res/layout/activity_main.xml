@@ -9,13 +9,13 @@
 
 
     <TextView
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        android:textSize="40dp"
-        android:textColor="@color/colorAccent"
-        android:text="동반자" />
+        android:text="동반자"
+        android:textColor="#E91E63"
+        android:textSize="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
         android:text="회원가입"
-        android:textColor="@color/colorAccent"
+        android:textColor="#E91E63"
         android:textSize="23dp" />
 
 
@@ -57,7 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="15dp"
-        android:text="회원가입" />
+        android:background="#FFFFFF"
+        android:text="회원가입"
+        android:textColor="#E91E63" />
 
     <TextView
         android:id="@+id/textViewSignin"
@@ -73,6 +75,8 @@
         android:id="@+id/textviewMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+
 
 
 </LinearLayout>

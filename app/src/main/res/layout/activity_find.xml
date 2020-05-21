@@ -8,14 +8,24 @@
 
     tools:context=".MainActivity">
 
+
     <TextView
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        android:textSize="23dp"
-        android:textColor="@color/colorAccent"
-        android:text="암호찾기" />
+        android:text="동반자"
+        android:textColor="#E91E63"
+        android:textSize="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="암호찾기"
+        android:textColor="#E91E63"
+        android:textSize="23dp" />
 
     <TextView
         android:text="등록한 Email을 입력해 주세요/"
@@ -36,9 +46,11 @@
         android:id="@+id/buttonFind"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         android:layout_gravity="center_horizontal"
-        android:text="Email 발송" />
+        android:layout_margin="15dp"
+        android:background="#FFFFFF"
+        android:text="Email 발송"
+        android:textColor="#E91E63" />
 
     <TextView
         android:layout_gravity="center_horizontal"

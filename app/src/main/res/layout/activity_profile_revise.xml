@@ -68,7 +68,6 @@
                     android:text="전화번호"
                     android:textSize="24sp" />
 
-
                 <Spinner
                     android:id="@+id/phonefirst"
                     android:layout_width="wrap_content"
@@ -88,7 +87,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="phone" />
+                    android:inputType="textPersonName" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -103,7 +102,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="phone" />
+                    android:inputType="textPersonName" />
 
             </LinearLayout>
 
@@ -335,34 +334,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:orientation="horizontal" >
-
-            </LinearLayout>
+                android:orientation="horizontal" />
 
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/revise_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/profile_check"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="#FF0000"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/revise_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="저장하기" />
-    </LinearLayout>
+        android:layout_gravity="bottom"
+        android:text="저장하기" />
 
 </LinearLayout>
