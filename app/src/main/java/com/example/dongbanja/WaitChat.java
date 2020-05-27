@@ -45,50 +45,37 @@ public class WaitChat extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wait_caht);
-
-
         user_next = (Button) findViewById(R.id.user_next);
         user_wait = (Button) findViewById(R.id.user_wait);
-
-
         firebaseAuth = FirebaseAuth.getInstance();
 
         user_wait.setOnClickListener(this);
         user_next.setOnClickListener(this);
 
     }
-
-
         @Override
         public void onClick(View v) {
 
         if (v == user_wait) {//대기열에 추가
             final String userId = firebaseAuth.getUid();
-
-
             databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
-
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                         boolean thereId = false;
-                        int count = 0;
+                      //  int count = 0;
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                           //  Log.e("snaps:",snapshot.getValue().toString());
                            // Log.e("snaps:","{uid="+userId+"}");
                             String s = snapshot.getValue().toString();
                             Log.e("s",s);
                             if(s.equals("{uid="+userId+"}")){
-
                               thereId = true;
                                 Log.e("Id",userId);
 
                                 break;
                             }
-
-                            count++;
+                         //   count++;
                         }
                         if (!thereId){
                             Log.e("d","d"+thereId);
@@ -97,8 +84,6 @@ public class WaitChat extends AppCompatActivity implements View.OnClickListener{
                            databaseReference.push().setValue(userModel);
 
                         }
-
-
                 }
 
                 @Override
@@ -125,41 +110,55 @@ public class WaitChat extends AppCompatActivity implements View.OnClickListener{
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    int count = 0;
+                 //   int count = 0;
                     String result = "";
                     String s ="";
+                    boolean thereMyId = false;
+                    boolean thereRoom = false;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         s = snapshot.getValue().toString();
                         if(s.equals("{uid="+userId+"}")){
-                            Log.e("Id",userId);
-                            continue;
-                        }
-                        else{
-                            count++;
-                            databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room");
-                            result =  s.substring(5,s.length()-1);
-                            ChatModel chatModel = new ChatModel();
-                            chatModel.uid1 = userId;
-                            chatModel.uid2 =result;
-                            databaseReference.push().setValue(chatModel);
-                            break;
+
+                            thereMyId = true;
+
                         }
                     }
+                    //User_Queue에 자신의 아이디가 있어야만 채팅방 생성
+                    if(thereMyId){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        s = snapshot.getValue().toString();
+                        //      count++;
+                        if (!s.equals("{uid=" + userId + "}")) {
+                            databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room");
+                            result = s.substring(5, s.length() - 1);
+                            ChatModel chatModel = new ChatModel();
+                            chatModel.uid1 = userId;
+                            chatModel.uid2 = result;
+                            databaseReference.push().setValue(chatModel);
+                            thereRoom =true;
+                            break;
+                        }
+                      }
+                    }
+
+
+                    if(thereRoom){
                     //User 큐에서 매칭된 아이디 삭제
                     databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         s = snapshot.getValue().toString();
-                        if(s.equals("{uid="+userId+"}")){
+                        if (s.equals("{uid=" + userId + "}")) {
+
+                            databaseReference.child(snapshot.getKey()).setValue(null);
+                        } else if (s.equals("{uid=" + result + "}")) {
 
                             databaseReference.child(snapshot.getKey()).setValue(null);
                         }
-                        else if(s.equals("{uid="+result+"}")){
+                    }
 
-                            databaseReference.child(snapshot.getKey()).setValue(null);
-                        }
-
+                    thereRoom = false;
                     }
 
                 }
