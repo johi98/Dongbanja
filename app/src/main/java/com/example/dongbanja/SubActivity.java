@@ -127,7 +127,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                     getApplicationContext(), // 현재 화면의 제어권자
                     ProfileActivity.class); // 다음 넘어갈 클래스 지정
             startActivity(intent); // 다음 화면으로 넘어간다
-            finish();
+
         }
 
         if(view==button_goChat){
@@ -135,7 +135,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                     getApplicationContext(), // 현재 화면의 제어권자
                     WaitChat.class); // 다음 넘어갈 클래스 지정
             startActivity(intent); // 다음 화면으로 넘어간다
-            finish();
+
         }
     }
 

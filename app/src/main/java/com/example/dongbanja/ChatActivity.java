@@ -19,6 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+//액티비티 시작시 오픈된 채팅방을 검색하여
+//자신의 아이디가 들어간 채팅방과 채팅방의 하위 객체인 uid2로 되어있는 자신의 채팅방을 확인
+//chatActivity 연결
+
 public class ChatActivity extends AppCompatActivity {
 
     private String CHAT_NAME;

@@ -135,6 +135,7 @@ public class WaitChat extends AppCompatActivity implements View.OnClickListener{
                             chatModel.uid1 = userId;
                             chatModel.uid2 = result;
                             databaseReference.push().setValue(chatModel);
+
                             thereRoom =true;
                             break;
                         }
