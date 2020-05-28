@@ -42,15 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         //텍스트 , 이미지 입력
 
             name.setText(profilereviseactivity.name1);
-
-            final String phoneNumber1 = profilereviseactivity.phonenumber1;
-
             phonenumber.setText(profilereviseactivity.phonenumber1);
-
-
-
-
-
             education.setText(profilereviseactivity.education1);
             length.setText(profilereviseactivity.length1);
             money.setText(profilereviseactivity.money1);
