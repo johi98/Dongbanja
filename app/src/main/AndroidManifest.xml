@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatMsg"/>
+        <activity android:name=".WaitChat"></activity>
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".WaitCaht" />
+        <activity android:name=".ChatMsg" />
         <activity android:name=".FindActivity" />
         <activity android:name=".SubActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ChatActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ProfileReviseActivity" />
         <activity

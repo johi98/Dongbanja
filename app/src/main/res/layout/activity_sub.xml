@@ -31,21 +31,19 @@
 
         <Button
             android:id="@+id/buttonLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="#FDFDFD"
             android:text="로그아웃"
-            android:textColor="#E91E63" />
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/textviewDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="16dp"
             android:text="회원탈퇴 합니다."
-            android:textColor="#E91E63" />
+            android:id="@+id/textviewDelete"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorAccent"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
         <EditText
@@ -62,21 +60,17 @@
             android:id="@+id/buttonNickname"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            android:background="#FFFFFF"
-            android:text="id_list 추가"
-            android:textColor="#E91E63" />
+            android:layout_gravity="center_horizontal"
+            android:text="id_list 추가" />
 
         <Button
             android:id="@+id/buttonGoProfile"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            android:background="#FFFFFF"
-            android:text="프로필이동"
-            android:textColor="#E91E63" />
+            android:layout_gravity="center_horizontal"
+            android:text="프로필이동" />
 
     </LinearLayout>
 </RelativeLayout>
