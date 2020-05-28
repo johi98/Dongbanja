@@ -6,4 +6,5 @@
     <item name="buttonSignup" type="id" />
     <item name="textViewFindpassword" type="id" />
     <item name="buttonGoChat" type="id" />
+    <item name="profile_check" type="id" />
 </resources>
