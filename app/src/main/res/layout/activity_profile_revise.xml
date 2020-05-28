@@ -53,8 +53,36 @@
                     android:ems="10"
                     android:hint="이름을 입력하세요"
                     android:inputType="textPersonName" />
-
+<<<<<<< Updated upstream
+=======
             </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="125dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="성별"
+                        android:textSize="24sp" />
+
+                    <RadioButton
+                        android:id="@+id/boy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="남자" />
+
+                    <RadioButton
+                        android:id="@+id/girl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="여자" />
+>>>>>>> Stashed changes
+
+                </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
