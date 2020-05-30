@@ -125,11 +125,12 @@ public class WaitChat extends AppCompatActivity implements View.OnClickListener{
                     }
                     //User_Queue에 자신의 아이디가 있어야만 채팅방 생성
                     if(thereMyId){
+
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         s = snapshot.getValue().toString();
                         //      count++;
                         if (!s.equals("{uid=" + userId + "}")) {
-                            databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room");
+                            databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room").child("uid");
                             result = s.substring(5, s.length() - 1);
                             ChatModel chatModel = new ChatModel();
                             chatModel.uid1 = userId;
@@ -171,8 +172,8 @@ public class WaitChat extends AppCompatActivity implements View.OnClickListener{
 
             });
 
-        //    Intent intent = new Intent(WaitChat.this, ChatActivity.class);
-          //  startActivity(intent);
+            Intent intent = new Intent(WaitChat.this, ChatActivity.class);
+            startActivity(intent);
         }
 
 
