@@ -9,13 +9,21 @@
     tools:context=".LoginActivity">
 
     <TextView
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:textSize="23dp"
-        android:textColor="@color/colorAccent"
-        android:text="로그인" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="동반자"
+        android:textColor="#E91E63"
+        android:textSize="40dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="로그인"
+        android:textColor="#E91E63"
+        android:textSize="23dp" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -39,9 +47,11 @@
         android:id="@+id/buttonSignup"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         android:layout_gravity="center_horizontal"
-        android:text="로그인" />
+        android:layout_margin="15dp"
+        android:background="#FFFFFF"
+        android:text="로그인"
+        android:textColor="#E91E63" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -56,12 +66,12 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="패스워드가 기억나지 않습니까?"
-            android:textColor="@color/colorAccent"
-            android:layout_marginLeft="16dp"
             android:id="@+id/textViewFindpassword"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="패스워드가 기억나지 않습니까?"
+            android:textColor="#E91E63" />
 
     </LinearLayout>
 
