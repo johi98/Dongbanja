@@ -16,6 +16,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dongbanja.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.InputStream;
@@ -38,15 +42,23 @@ public class ProfileReviseActivity extends AppCompatActivity {
     public static String living1;
     public static TextView profile_check;
     public String man, women;
+    public String email1;
 
 
+
+    /*private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();*/
+
+
+
+    private DatabaseReference mDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_profile_revise);
 
-    System.out.println(name1);
+    mDatabase = FirebaseDatabase.getInstance().getReference();
 
     profile_check = (TextView) findViewById(R.id.profile_check);
 
@@ -121,10 +133,6 @@ public class ProfileReviseActivity extends AppCompatActivity {
                 toast.show();*/
 
 
-
-
-
-                System.out.println(name1.length());
             profileCheck();
             }
         });
@@ -166,15 +174,33 @@ public class ProfileReviseActivity extends AppCompatActivity {
             startActivity(intent); // 다음 화면으로 넘어간다
             finish();
 
+
             Toast toast = Toast.makeText(getApplicationContext(),
                     "회원정보 수정에 성공하였습니다.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM, 0, 200);
             toast.show();
+            email1 = "asfd@naver.com";
+
+
+            UserProfile userProfile = new UserProfile(name1);
+
+            mDatabase.child("users").child(email1).setValue(userProfile);
+
 
         }
 
     }
 
+/*    private void writeNewUser(String userId, String name
+,String education,String phonenumber,String length,String job,String money,String family,
+                              String drunksmoke,String living,String salary, String religion
+) {
+        UserProfile userProfile = new UserProfile(name
+, education, phonenumber, length, job, money, family, drunksmoke, living, salary, religion
+);
+
+        mDatabase.child("users").child(userId).setValue(userProfile);
+    }*/
 
 
     //이미지 불러오기

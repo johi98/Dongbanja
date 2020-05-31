@@ -6,14 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserProfile {
-    public String name, gender, education, phonenumber, length, job, money, family, drunksmoke, living, salary, religion;
+    public String name, education, phonenumber, length, job, money, family, drunksmoke, living, salary, religion;
 
 
 
-    public UserProfile(String s, String gender, String education, String phonenumber, String length, String job, String money, String family, String drunksmoke, String living, String salary, String name) {
+    public UserProfile(String name/*, String education, String phonenumber, String length, String job, String money, String family, String drunksmoke, String living, String salary, String religion*/) {
         this.name = name;
-        this.gender = this.gender;
-        this.education = this.education;
+/*        this.education = this.education;
         this.phonenumber = this.phonenumber;
         this.length = this.length;
         this.job = this.job;
@@ -22,14 +21,11 @@ public class UserProfile {
         this.drunksmoke = this.drunksmoke;
         this.living = this.living;
         this.salary = this.salary;
-        this.religion = religion;
+        this.religion = religion;*/
     }
 
     public String getName() {
         return name;
-    }
-    public String getGender() {
-        return gender;
     }
     public String getEducation() {
         return education;

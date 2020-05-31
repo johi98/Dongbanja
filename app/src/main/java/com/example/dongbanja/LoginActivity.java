@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //define view objects
+
     EditText editTextEmail;
     EditText editTextPassword;
     Button buttonSignin;
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView textviewMessage;
     TextView textviewFindPassword;
     ProgressDialog progressDialog;
-    //define firebase object
+
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //initializig firebase auth object
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
 
-        //initializing views
+
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textviewSingin= (TextView) findViewById(R.id.textViewSignin);
@@ -56,13 +56,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonSignin = (Button) findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
 
-        //button click event
+
         buttonSignin.setOnClickListener(this);
         textviewSingin.setOnClickListener(this);
         textviewFindPassword.setOnClickListener(this);
     }
 
-    //firebase userLogin method
+    //Login method
     private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
