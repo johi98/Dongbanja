@@ -30,8 +30,6 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
     public FirebaseAuth firebaseAuth;
     public DatabaseReference mPostReference;
 
-    public static String asdf;
-
     //view objects
     public TextView textViewUserEmail;
     private Button buttonLogout;
@@ -70,7 +68,6 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
         //textViewUserEmail의 내용을 변경해 준다.
         textViewUserEmail.setText("반갑습니다.\n"+ user.getEmail()+"으로 로그인 하였습니다.");
-        asdf = user.getEmail();
 
         //logout button event
         buttonLogout.setOnClickListener(this);

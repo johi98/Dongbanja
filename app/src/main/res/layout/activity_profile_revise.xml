@@ -42,6 +42,29 @@
                     android:layout_width="125dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:text="닉네임"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/editnickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="사용할 닉네임을 입력해주세요"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="125dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="이름"
                     android:textSize="24sp" />
 

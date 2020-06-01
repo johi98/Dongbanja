@@ -10,23 +10,23 @@ public class UserProfile {
 
 
 
-    public UserProfile(String name/*, String education, String phonenumber, String length, String job, String money, String family, String drunksmoke, String living, String salary, String religion*/) {
+    public UserProfile(){}
+
+    public UserProfile(String name, String education, String phonenumber, String length, String job, String money, String family, String drunksmoke, String living, String salary, String religion) {
         this.name = name;
-/*        this.education = this.education;
-        this.phonenumber = this.phonenumber;
-        this.length = this.length;
-        this.job = this.job;
-        this.money = this.money;
-        this.family = this.family;
-        this.drunksmoke = this.drunksmoke;
-        this.living = this.living;
-        this.salary = this.salary;
-        this.religion = religion;*/
+        this.education = education;
+        this.phonenumber = phonenumber;
+        this.length = length;
+        this.job = job;
+        this.money = money;
+        this.family = family;
+        this.drunksmoke = drunksmoke;
+        this.living = living;
+        this.salary = salary;
+        this.religion = religion;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name; }
     public String getEducation() {
         return education;
     }

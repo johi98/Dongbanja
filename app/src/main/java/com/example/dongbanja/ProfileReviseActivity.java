@@ -29,6 +29,7 @@ public class ProfileReviseActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 0;
     public static ImageView imageView;
 
+    public static String nickname1;
     public static String name1;
     public static String phonenumber1;
     public static String education1;
@@ -44,7 +45,8 @@ public class ProfileReviseActivity extends AppCompatActivity {
     public String man, women;
     public String email1;
 
-
+    public FirebaseAuth firebaseAuth;
+    public DatabaseReference mPostReference;
 
     /*private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();*/
@@ -93,6 +95,8 @@ public class ProfileReviseActivity extends AppCompatActivity {
                 Spinner salary = (Spinner)findViewById(R.id.editsalary);
 
                 //입력받아오기
+                nickname1 = ((EditText)findViewById(R.id.editnickname)).getText().toString();
+
                 name1 = ((EditText)findViewById(R.id.editname)).getText().toString();
 
                 String first = phone1.getSelectedItem().toString();
@@ -140,8 +144,12 @@ public class ProfileReviseActivity extends AppCompatActivity {
 
     private void profileCheck()
     {
-
-        if(name1.length() <= 0 )
+        if(nickname1.length() <= 6 || nickname1.length() >= 12)
+        {
+            profile_check.setVisibility(View.VISIBLE);
+            profile_check.setText("닉네임을 6~12자 이내로 입력하십시오");
+        }
+        else if(name1.length() <= 0 )
         {
             profile_check.setVisibility(View.VISIBLE);
             profile_check.setText("이름을 입력하십시오");
@@ -179,28 +187,20 @@ public class ProfileReviseActivity extends AppCompatActivity {
                     "회원정보 수정에 성공하였습니다.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM, 0, 200);
             toast.show();
-            email1 = "asfd@naver.com";
 
-
-            UserProfile userProfile = new UserProfile(name1);
-
-            mDatabase.child("users").child(email1).setValue(userProfile);
-
-
+            writeNewUser(nickname1, name1, education1, phonenumber1, length1, job1, money1, family1, drunksmoke1, living1, salary1, religion1);
         }
 
     }
 
-/*    private void writeNewUser(String userId, String name
+    private void writeNewUser(String userId, String name
 ,String education,String phonenumber,String length,String job,String money,String family,
-                              String drunksmoke,String living,String salary, String religion
-) {
+                              String drunksmoke,String living,String salary, String religion)
+    {
         UserProfile userProfile = new UserProfile(name
-, education, phonenumber, length, job, money, family, drunksmoke, living, salary, religion
-);
-
+, education, phonenumber, length, job, money, family, drunksmoke, living, salary, religion);
         mDatabase.child("users").child(userId).setValue(userProfile);
-    }*/
+    }
 
 
     //이미지 불러오기
