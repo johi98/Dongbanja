@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileReviseActivity extends AppCompatActivity {
 
@@ -43,16 +45,7 @@ public class ProfileReviseActivity extends AppCompatActivity {
     public static String living1;
     public static TextView profile_check;
     public String man, women;
-    public String email1;
-
-    public FirebaseAuth firebaseAuth;
-    public DatabaseReference mPostReference;
-
-    /*private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference();*/
-
-
-
+    public String uid;
     private DatabaseReference mDatabase;
 
     @Override
@@ -183,23 +176,57 @@ public class ProfileReviseActivity extends AppCompatActivity {
             finish();
 
 
+            // toast 창 띄우기
             Toast toast = Toast.makeText(getApplicationContext(),
                     "회원정보 수정에 성공하였습니다.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM, 0, 200);
             toast.show();
 
-            writeNewUser(nickname1, name1, education1, phonenumber1, length1, job1, money1, family1, drunksmoke1, living1, salary1, religion1);
+
+            firebaseCheck();
         }
 
     }
 
-    private void writeNewUser(String userId, String name
+/*    private void writeNewUser(String userId, String name
 ,String education,String phonenumber,String length,String job,String money,String family,
                               String drunksmoke,String living,String salary, String religion)
     {
         UserProfile userProfile = new UserProfile(name
 , education, phonenumber, length, job, money, family, drunksmoke, living, salary, religion);
         mDatabase.child("users").child(userId).setValue(userProfile);
+    }*/
+
+
+
+//파이어베이스 데이터 인증
+private void firebaseCheck()
+{
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    if (user != null) {
+
+        writeNewUser(nickname1, name1, education1, phonenumber1, length1, job1, money1, family1, drunksmoke1, living1, salary1, religion1);
+    }
+}
+
+
+
+
+
+//파이어베이스 데이터 저장
+    private void writeNewUser(String userId, String name
+            ,String education,String phonenumber,String length,String job,String money,String family,
+                              String drunksmoke,String living,String salary, String religion) {
+        // Create new post at /user-posts/$userid/$postid and at
+        // /posts/$postid simultaneously
+        String key = mDatabase.child("userProfiles").push().getKey();
+        UserProfile userProfile = new UserProfile(name
+                , education, phonenumber, length, job, money, family, drunksmoke, living, salary, religion);
+        Map<String, Object> postValues = userProfile.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/userProfile/" + userId + "/" + key, postValues);
+
+        mDatabase.updateChildren(childUpdates);
     }
 
 
