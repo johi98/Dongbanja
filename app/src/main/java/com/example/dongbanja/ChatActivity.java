@@ -112,7 +112,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void openChat(String user1) {
         // 리스트 어댑터 생성 및 세팅
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_chat_singlemessage, R.id.singleMessage);
         chat_view.setAdapter(adapter);
 
         // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리
