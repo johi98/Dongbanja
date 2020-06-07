@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chat_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -26,18 +26,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/chat_sent"
-                android:layout_width="match_parent"
+                android:id="@+id/img_sent"
+                android:layout_width="64dp"
                 android:layout_height="wrap_content"
-                android:text="send" />
+                android:text="img" />
+
 
             <EditText
                 android:id="@+id/chat_edit"
-                android:layout_width="match_parent"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/chat_sent"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:text="send" />
+
+
         </LinearLayout>
 
     </LinearLayout>

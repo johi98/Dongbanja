@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -32,14 +34,19 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-    private ListView chat_view;
+    private RecyclerView chat_view;
+    public  RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mlayoutManager;
+    private  List<ChatDTO> chaList;
+
+
     private EditText chat_edit;
     private Button chat_send;
-
+    private Button img_send;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private FirebaseAuth firebaseAuth;
-    List<String> roomKeyList = new ArrayList<>();
+
     String roomKey ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +58,16 @@ public class ChatActivity extends AppCompatActivity {
 
         final String userId = firebaseAuth.getUid();
         final String chatUser2="";
-        chat_view = (ListView) findViewById(R.id.chat_view);
+        chat_view =  findViewById(R.id.chat_view);
+        chat_view.setHasFixedSize(true);
+        mlayoutManager = new LinearLayoutManager(this);
+        chat_view.setLayoutManager(mlayoutManager);
+        chaList = new ArrayList<>();
+        mAdapter = new ChatAdapter(chaList, ChatActivity.this);
+        chat_view.setAdapter(mAdapter);
         chat_edit = (EditText) findViewById(R.id.chat_edit);
         chat_send = (Button) findViewById(R.id.chat_sent);
+        img_send = (Button) findViewById(R.id.img_sent);
 
         // 로그인 화면에서 받아온 채팅방 이름, 유저 이름 저장
         Intent intent = getIntent();
@@ -71,6 +85,7 @@ public class ChatActivity extends AppCompatActivity {
                         roomKey = snapshot.getKey();
                         // 채팅 방 입장
                         databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room");
+
                         openChat(roomKey);
 
                     }
@@ -98,6 +113,26 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+        img_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                getIntent.setType("image/*");
+
+                Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickIntent.setType("image/*");
+
+                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+
+                startActivityForResult(chooserIntent, 30);
+            }
+        });
+
+
+
     }
 
     private void addMessage(DataSnapshot dataSnapshot, ArrayAdapter<String> adapter) {
@@ -112,14 +147,13 @@ public class ChatActivity extends AppCompatActivity {
 
     private void openChat(String user1) {
         // 리스트 어댑터 생성 및 세팅
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_chat_singlemessage, R.id.singleMessage);
-        chat_view.setAdapter(adapter);
 
         // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리
         databaseReference.child(user1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                addMessage(dataSnapshot, adapter);
+                ChatDTO chat = dataSnapshot.getValue(ChatDTO.class);
+                ((ChatAdapter) mAdapter).addChat(chat);
 
             }
 
