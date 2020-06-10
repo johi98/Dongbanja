@@ -4,12 +4,14 @@ package com.example.dongbanja;
 import android.content.Context;
 import android.net.Uri;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 
 /**
@@ -19,12 +21,14 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
     private List<ChatDTO> mDataset;
     private String myNickName;
+    private FirebaseAuth firebaseAuth;
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView TextView_nickname;
+
         public TextView TextView_msg;
         public View rootView;
         public MyViewHolder(View v) {
@@ -42,6 +46,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     public ChatAdapter(List<ChatDTO> myDataset, Context context) {
         //{"1","2"}
         this.mDataset = myDataset;
+        firebaseAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -64,17 +69,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         // - replace the contents of the view with that element
         ChatDTO chat = mDataset.get(position);
 
-
+        final String userId = firebaseAuth.getUid();
         holder.TextView_msg.setText(chat.getMessage());
-/*
-        if(chat.getNickname().equals(this.myNickName)) {
-            holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+
+
+        if(chat.getUid().equals(userId)) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            params.gravity = Gravity.RIGHT;
+            holder.TextView_msg.setLayoutParams(params);
+
         }
         else {
-            holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-        }*/
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            params.gravity = Gravity.LEFT;
+            holder.TextView_msg.setLayoutParams(params);
+        }
 
     }
 

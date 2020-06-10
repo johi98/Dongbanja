@@ -106,7 +106,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (chat_edit.getText().toString().equals(""))
                     return;
 
-                ChatDTO chat = new ChatDTO( chat_edit.getText().toString()); //ChatDTO를 이용하여 데이터를 묶는다.
+                ChatDTO chat = new ChatDTO( chat_edit.getText().toString(),userId); //ChatDTO를 이용하여 데이터를 묶는다.
                 databaseReference.child(roomKey).push().setValue(chat); // 데이터를 json파일에 chat의 자식으로 넣는다
                 chat_edit.setText(""); //입력창 초기화
 
