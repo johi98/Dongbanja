@@ -99,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view == buttonSignup) {
             //TODO
             registerUser();
+            Intent intent = new Intent(
+                    getApplicationContext(), // 현재 화면의 제어권자
+                    UserInfo.class); // 다음 넘어갈 클래스 지정
+            startActivity(intent); // 다음 화면으로 넘어간다
         }
 
         if(view == textviewSingin) {

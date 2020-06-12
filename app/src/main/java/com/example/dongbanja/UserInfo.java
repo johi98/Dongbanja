@@ -27,6 +27,7 @@ public class UserInfo extends AppCompatActivity {
     public String nickname;
     public String gender;
     public String uid;
+    public String uid1;
     private DatabaseReference mDatabase;
 
 
@@ -47,6 +48,9 @@ public class UserInfo extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
+
+        FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user1.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 

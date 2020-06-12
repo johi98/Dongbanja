@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="결제하기" />
+            android:text="테스트용" />
 
     </LinearLayout>
 </RelativeLayout>
