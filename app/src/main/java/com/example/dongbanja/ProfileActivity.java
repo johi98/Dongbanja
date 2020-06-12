@@ -12,8 +12,6 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.dongbanja.R;
-
 public class ProfileActivity extends AppCompatActivity {
 
 

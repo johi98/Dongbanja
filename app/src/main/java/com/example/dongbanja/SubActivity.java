@@ -29,15 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.AdRequest;
 
 public class SubActivity extends AppCompatActivity  implements View.OnClickListener{
 
-    private InterstitialAd mInterstitialAd;
 
     private static final String TAG = "ProfileActivity";
 
@@ -66,14 +60,6 @@ public class SubActivity extends AppCompatActivity  implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
 
@@ -181,11 +167,11 @@ public class SubActivity extends AppCompatActivity  implements View.OnClickListe
 
         }
         if(view==button_goPayment){
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.");
-            }
+            Intent intent = new Intent(
+                    getApplicationContext(), // 현재 화면의 제어권자
+                    UserInfo.class); // 다음 넘어갈 클래스 지정
+            startActivity(intent); // 다음 화면으로 넘어간다
+
         }
     }
 
