@@ -3,15 +3,19 @@ package com.example.dongbanja;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.multidex.MultiDexApplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,10 +24,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class SubActivity extends AppCompatActivity implements View.OnClickListener{
+
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.AdRequest;
+
+public class SubActivity extends AppCompatActivity  implements View.OnClickListener{
+
+    private InterstitialAd mInterstitialAd;
+
     private static final String TAG = "ProfileActivity";
 
     //firebase auth object
@@ -34,17 +49,33 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
     private TextView textViewUserEmail;
     private Button buttonLogout;
     private TextView textivewDelete;
+    private TextView nickname_text;
 
     private EditText editText_Nickname;
     private Button button_nickname;
     private Button button_goProfile;
     private Button button_goChat;
+    private Button button_goPayment;
     String name;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
 
         //initializing views
         textViewUserEmail = (TextView) findViewById(R.id.textviewUserEmail);
@@ -54,6 +85,8 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         button_nickname = (Button)findViewById(R.id.buttonNickname);
         button_goProfile = (Button)findViewById(R.id.buttonGoProfile);
         button_goChat = (Button)findViewById(R.id.buttonGoChat);
+        button_goPayment = (Button)findViewById(R.id.payment);
+        nickname_text = (TextView) findViewById(R.id.show_nickname);
 
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -75,6 +108,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         button_nickname.setOnClickListener(this);
         button_goProfile.setOnClickListener(this);
         button_goChat.setOnClickListener(this);
+        button_goPayment.setOnClickListener(this);
     }
 
     @Override
@@ -121,6 +155,15 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
             editText_Nickname.requestFocus();
             editText_Nickname.setCursorVisible(true);
 
+            nickname_text.setText(name+" 님");
+
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "닉네임 등록을 완료하였습니다.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM, 0, 200);
+            toast.show();
+
+
+
         }
         if(view==button_goProfile){
             Intent intent = new Intent(
@@ -137,7 +180,33 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
             startActivity(intent); // 다음 화면으로 넘어간다
 
         }
+        if(view==button_goPayment){
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.");
+            }
+        }
     }
+
+
+
+    DialogInterface.OnClickListener dialogListener=new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            finish();
+        }
+    };
+
+/*    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage("결제를 계속 진행하시겠습니까?");
+        builder.setPositiveButton("확인", dialogListener);
+        builder.setNegativeButton("취소", null);
+        AlertDialog dialog=builder.create();
+        dialog.show();
+    }*/
 
 
     public void postFirebaseDatabase(boolean add){

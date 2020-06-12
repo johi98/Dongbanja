@@ -1,6 +1,8 @@
 
 package com.example.dongbanja;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +28,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.AdRequest;
 
 //액티비티 시작시 오픈된 채팅방을 검색하여
 //자신의 아이디가 들어간 채팅방과 채팅방의 하위 객체인 uid2로 되어있는 자신의 채팅방을 확인
@@ -32,7 +40,7 @@ import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
 
-
+    private InterstitialAd mInterstitialAd;
 
     private RecyclerView chat_view;
     public  RecyclerView.Adapter mAdapter;
@@ -52,6 +60,18 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+
+        //광고
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
         firebaseAuth = FirebaseAuth.getInstance();// FirebaseAuth 인스턴스 생성
         // 채팅방 키, 유저 이름 저장
@@ -177,10 +197,20 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
+
+
+    @Override
+    public void onBackPressed() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+            finish();
+
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }
+    }
 
 
 }
