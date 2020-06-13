@@ -50,15 +50,42 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        ChatDTO chat = mDataset.get(position);
+
+        final String userId = firebaseAuth.getUid();
+
+
+
+        if(chat.getUid().equals(userId)) {
+
+            return 0;
+
+        }
+        else {
+            return 1 ;
+        }
+
+    }
     // Create new views (invoked by the layout manager)
     @Override
     public ChatAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                        int viewType) {
-        // create a new view
-        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_chat_singlemessage, parent, false);
+        LinearLayout v = null;
+
+        if (viewType == 0) {
+            v = (LinearLayout) LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.activity_chat_singlemessage2, parent, false);
+        }
+        if (viewType == 1){
+            v = (LinearLayout) LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.activity_chat_singlemessage, parent, false);
+        }
 
         MyViewHolder vh = new MyViewHolder(v);
+
+
         return vh;
     }
 
@@ -70,9 +97,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         ChatDTO chat = mDataset.get(position);
 
         final String userId = firebaseAuth.getUid();
+
+
         holder.TextView_msg.setText(chat.getMessage());
-
-
         if(chat.getUid().equals(userId)) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
             params.gravity = Gravity.RIGHT;
@@ -86,6 +113,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         }
 
     }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

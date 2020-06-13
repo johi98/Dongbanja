@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +46,7 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView chat_view;
     public  RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mlayoutManager;
+
     private  List<ChatDTO> chaList;
 
 
@@ -85,6 +87,7 @@ public class ChatActivity extends AppCompatActivity {
         chaList = new ArrayList<>();
         mAdapter = new ChatAdapter(chaList, ChatActivity.this);
         chat_view.setAdapter(mAdapter);
+        chat_view.addItemDecoration(new MyItemDecoration());
         chat_edit = (EditText) findViewById(R.id.chat_edit);
         chat_send = (Button) findViewById(R.id.chat_sent);
         img_send = (Button) findViewById(R.id.img_sent);
@@ -243,6 +246,16 @@ public class ChatActivity extends AppCompatActivity {
 
         } else {
             Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }
+    }
+
+    class MyItemDecoration extends RecyclerView.ItemDecoration{
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state){
+            super.getItemOffsets(outRect, view, parent, state);
+            outRect.set(20,20,20,20);
+
         }
     }
 
