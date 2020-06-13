@@ -92,9 +92,6 @@ public class ChatActivity extends AppCompatActivity {
         // 로그인 화면에서 받아온 채팅방 이름, 유저 이름 저장
         Intent intent = getIntent();
 
-
-
-
         databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room").child("uid");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -106,9 +103,6 @@ public class ChatActivity extends AppCompatActivity {
                     if(s.contains(userId)){
 
                         roomKey = snapshot.getKey();
-
-
-
                         // 채팅 방 입장
                         databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room");
 
@@ -124,34 +118,6 @@ public class ChatActivity extends AppCompatActivity {
 
         });
 
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String s ="";
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    s = snapshot.getValue().toString();
-                    if(s.contains(userId)){
-                        //User 큐에서 매칭된 아이디 삭제
-                            s = snapshot.getValue().toString();
-                            UserModel userModel = snapshot.getValue(UserModel.class);
-                            Log.e("데이터스",userModel.uid);
-                        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
-                                Log.e("나 삭제","1");
-                                databaseReference.child(snapshot.getKey()).setValue(null);
-                        databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room");
-
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
-        databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room");
 
         // 메시지 전송 버튼에 대한 클릭 리스너 지정
         chat_send.setOnClickListener(new View.OnClickListener() {

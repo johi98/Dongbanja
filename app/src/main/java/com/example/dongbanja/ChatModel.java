@@ -16,7 +16,7 @@ public class ChatModel {
             this.uid1 = uid1;
     }
     public void setuid2(String message) {
-        this.uid2 = uid2;
+        this.uid1 = uid2;
     }
 
 

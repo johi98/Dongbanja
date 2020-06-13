@@ -18,7 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SingUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //정의
     EditText editTextEmail;
@@ -40,7 +40,7 @@ public class SingUpActivity extends AppCompatActivity implements View.OnClickLis
         if(firebaseAuth.getCurrentUser() != null){
             //이미 로그인 되었다면 이 액티비티를 종료함
             finish();
-
+            //그리고 profile 액티비티를 연다.
             startActivity(new Intent(getApplicationContext(), SubActivity.class)); //추가해 줄 ProfileActivity
         }
         //views 찾기
@@ -85,7 +85,7 @@ public class SingUpActivity extends AppCompatActivity implements View.OnClickLis
                         } else {
                             //에러발생시
                             textviewMessage.setText("에러유형\n - 이미 등록된 이메일  \n -암호 최소 6자리 이상 \n - 서버에러");
-                            Toast.makeText(SingUpActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
                     }
