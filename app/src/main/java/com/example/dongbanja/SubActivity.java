@@ -22,7 +22,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,11 +41,10 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
     //view objects
     private TextView textViewUserEmail;
     private Button buttonLogout;
+    private Button test;
     private TextView textivewDelete;
 
-    private EditText editText_Nickname;
-    private Button button_nickname;
-    private Button button_goProfile;
+
     private Button button_goChat;
     String name;
     ProgressDialog progressDialog;
@@ -67,6 +65,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         textivewDelete = (TextView) findViewById(R.id.textviewDelete);
         button_goChat = (Button)findViewById(R.id.buttonGoChat);
+        test = (Button)findViewById(R.id.payment);
         progressDialog = new ProgressDialog(this);
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -86,6 +85,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         buttonLogout.setOnClickListener(this);
         textivewDelete.setOnClickListener(this);
         button_goChat.setOnClickListener(this);
+        test.setOnClickListener(this);
     }
 
     @Override
@@ -94,6 +94,13 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
+        }
+        if (view == test) {
+            Intent intent = new Intent(
+                    getApplicationContext(), // 현재 화면의 제어권자
+                    UserInfo.class); // 다음 넘어갈 클래스 지정
+            startActivity(intent); // 다음 화면으로 넘어간다
+            finish();
         }
         //회원탈퇴를 클릭하면 회원정보를 삭제한다. 삭제전에 컨펌창을 하나 띄워야 겠다.
         if(view == textivewDelete) {
@@ -285,7 +292,6 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                                 chatModel.uid1 = userId;
                                 chatModel.uid2 = result;
                                 databaseReference.push().setValue(chatModel);
-
 
                                 break;
                             }
