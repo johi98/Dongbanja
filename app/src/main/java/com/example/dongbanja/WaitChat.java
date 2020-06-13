@@ -103,6 +103,7 @@ public class WaitChat extends AppCompatActivity implements View.OnClickListener{
             //아이디 삭제
 
 
+
             final String userId = firebaseAuth.getUid();
 
             databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
