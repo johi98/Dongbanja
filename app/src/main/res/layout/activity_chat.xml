@@ -32,7 +32,8 @@
                 android:id="@+id/img_sent"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
-                android:text="img" />
+                android:text="나가기"
+                />
 
 
             <EditText
