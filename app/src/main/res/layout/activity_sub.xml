@@ -56,7 +56,7 @@
 
 
         <Button
-            android:id="@+id/payment"
+            android:id="@+id/women_queue"
             android:layout_width="198dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

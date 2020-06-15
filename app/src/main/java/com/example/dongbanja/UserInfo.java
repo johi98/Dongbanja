@@ -45,6 +45,7 @@ public class UserInfo extends AppCompatActivity {
         setContentView(R.layout.activity_userinfo);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();// FirebaseAuth 인스턴스 생성
 
         userCheck = (TextView) findViewById(R.id.check);
         RadioGroup choose;
@@ -117,6 +118,7 @@ public class UserInfo extends AppCompatActivity {
         }
         else
         {
+            final String uid = firebaseAuth.getUid();
             writeNewUser(nickname, gender, uid);
 
 

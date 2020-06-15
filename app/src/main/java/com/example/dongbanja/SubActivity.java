@@ -55,6 +55,10 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
     boolean handlerOn = false;
     boolean thereRoom = false;
     boolean startChat = false;
+    String userGender = "";
+    String userId ="";
+    String result = "";
+    boolean thereHumanResult = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +69,11 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         textivewDelete = (TextView) findViewById(R.id.textviewDelete);
         button_goChat = (Button)findViewById(R.id.buttonGoChat);
-        test = (Button)findViewById(R.id.payment);
+        test = (Button)findViewById(R.id.women_queue);
         progressDialog = new ProgressDialog(this);
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
+        userId = firebaseAuth.getUid();
         //유저가 로그인 하지 않은 상태라면 null 상태이고 이 액티비티를 종료하고 로그인 액티비티를 연다.
         if(firebaseAuth.getCurrentUser() == null) {
             finish();
@@ -86,6 +91,32 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         textivewDelete.setOnClickListener(this);
         button_goChat.setOnClickListener(this);
         test.setOnClickListener(this);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("UserInfo");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            final String userId = firebaseAuth.getUid();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean thereId = false;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    String s = snapshot.getValue().toString();
+                    UserInfoModel userInfoModel = snapshot.getValue(UserInfoModel.class);
+                    if (s.contains(userId)) {
+
+                        userGender = userInfoModel.gender;
+                        Log.e("das",userGender);
+                    }
+                }//폴문끝
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){
+
+            }
+
+        });
     }
 
     @Override
@@ -95,13 +126,24 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
-        if (view == test) {
-            Intent intent = new Intent(
-                    getApplicationContext(), // 현재 화면의 제어권자
-                    UserInfo.class); // 다음 넘어갈 클래스 지정
-            startActivity(intent); // 다음 화면으로 넘어간다
-            finish();
+
+        if (view == test) {// woman에 큐 생성
+
+            databaseReference = FirebaseDatabase.getInstance().getReference("UserInfo");
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                            databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("woman");
+                                UserModel userModel = new UserModel();
+                                userModel.uid = userId;
+                                databaseReference.push().setValue(userModel);
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError){
+                }
+            });
         }
+
         //회원탈퇴를 클릭하면 회원정보를 삭제한다. 삭제전에 컨펌창을 하나 띄워야 겠다.
         if(view == textivewDelete) {
             AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SubActivity.this);
@@ -151,13 +193,10 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                 }
             });
             backKeyClick = false;
-            if (!startChat){
+           if (!startChat){
                 setChatQueue();
             }//큐에 아이디를 집어 넣음
             chatMatching();//다른아이디가 있을경우 아이디를 찾음
-
-
-
 
         }
 
@@ -166,44 +205,79 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
 
     public void setChatQueue(){
-        Log.e("챗큐 실행","큐 넣을께?");
-        final String userId = firebaseAuth.getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean thereId = false;
-                //  int count = 0;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //  Log.e("snaps:",snapshot.getValue().toString());
-                    // Log.e("snaps:","{uid="+userId+"}");
-                    String s = snapshot.getValue().toString();
-                    Log.e("s",s);
-                    if(s.equals("{uid="+userId+"}")){
-                        thereId = true;
-                        Log.e("Id",userId);
 
-                        break;
+
+        Log.e("큐넣기전",userGender);
+       if (userGender.equals("man")) {
+
+            Log.e("das","남자큐");
+            databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("man");
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean thereId = false;
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String s = snapshot.getValue().toString();
+                            if (s.contains(userId)) {
+                                thereId = true;
+                            }
+
                     }
-                    //   count++;
-                }
-                if (!thereId){
-                    Log.e("d","d"+thereId);
-                    UserModel userModel = new UserModel();
-                    userModel.uid = userId;
-                    databaseReference.push().setValue(userModel);
+                    if (!thereId) {
+                        UserModel userModel = new UserModel();
+                        userModel.uid = userId;
+                        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("man");
+                        Log.e("das","남자큐 넣음");
+                        databaseReference.push().setValue(userModel);
+                    }
 
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
+                }
 
-        });
-    }
+            });
+        }
 
+        if (userGender.equals("woman")) {
+
+
+            databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("woman");
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean thereId = false;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String s = snapshot.getValue().toString();
+                        if (s.contains(userId)) {
+                            thereId = true;
+                        }
+
+                    }
+                    if (!thereId) {
+                        UserModel userModel = new UserModel();
+                        userModel.uid = userId;
+                        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("woman");
+                        databaseReference.push().setValue(userModel);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+        }
+
+        }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void chatMatching(){
         final String userId = firebaseAuth.getUid();
         startChat = false;
@@ -228,6 +302,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
 
                     }
+                    Log.e("das","잘돌아감1");
                 }
             }
             @Override
@@ -237,103 +312,76 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
         });
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
+        databaseReference = firebaseDatabase.getReference();
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //   int count = 0;
-                String result = "";
                 String s = "";
-                boolean thereMyId = false;
-
-                boolean thereOtherUser = false;
-                boolean alreadyChat = false;
 
 
+                    if (userGender.equals("man")) {
 
-                databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {//나의 아이디가 있는지 확인함
-                    s = snapshot.getValue().toString();
-                    UserModel userModel = snapshot.getValue(UserModel.class);
-                    if(userModel.uid.equals(userId)){
-                        Log.e("다른사람있음",userModel.uid);
-                        thereMyId = true;
-
+                        thereHuman("woman");
                     }
-                }
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    s = snapshot.getValue().toString();
-                    UserModel userModel = snapshot.getValue(UserModel.class);
-                    if(!userModel.uid.equals(userId)){
-                        Log.e("다른사람있음",userModel.uid);
-                        Log.e("다른사람있음(나)", userId);
-                        thereOtherUser = true;
+                    if (userGender.equals("woman")) {
 
+                        thereHuman("man");
                     }
-                }
 
-                if (thereOtherUser&&!thereRoom) {//다른사람의 아이디와 나의 아이디가 있어야 채팅방 생성
+                if (!thereRoom&&thereHumanResult) {
+                    //다른사람의 아이디와 나의 아이디가 있어야 채팅방 생성
                     //User_Queue에 자신의 아이디가 있어야만 채팅방 생성
 
-                    Log.e("1차 통과","1");
 
-                    //       if (thereMyId) {
-                    Log.e("2차 통과","1");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        s = snapshot.getValue().toString();
-                        //      count++;
-                        if (!s.equals("{uid=" + userId + "}")) {
-                            databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room").child("uid");
-                            result = s.substring(5, s.length() - 1);
-                            ChatModel chatModel = new ChatModel();
-                            chatModel.uid1 = userId;
-                            chatModel.uid2 = result;
-                            databaseReference.push().setValue(chatModel);
 
-                            break;
+                    /*    //User 큐에서 매칭된 아이디 삭제
+                        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("woman");
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                            s = snapshot.getValue().toString();
+                            if(s.contains(userId)){
+
+                                databaseReference.child(snapshot.getKey()).setValue(null);
+
+                            }
+                            if(s.contains(result)){
+                                databaseReference.child(snapshot.getKey()).setValue(null);
+                            }
                         }
-                    }
+                        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("man");
 
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    //       }
+                          s = snapshot.getValue().toString();
+                            if(s.contains(userId)){
 
+                               databaseReference.child(snapshot.getKey()).setValue(null);
 
-
-                    //User 큐에서 매칭된 아이디 삭제
-                    databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("Id");
-
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                        s = snapshot.getValue().toString();
-                        UserModel userModel = snapshot.getValue(UserModel.class);
-                        Log.e("데이터스",userModel.uid);
-                        if(s.contains(userId)){
-                            Log.e("나 삭제","1");
-                            databaseReference.child(snapshot.getKey()).setValue(null);
-
+                           }
+                          if(s.contains(result)){
+                              databaseReference.child(snapshot.getKey()).setValue(null);
+                          }
                         }
-                        if(s.contains(result)){
-                            Log.e("너 삭제","1");
-                            databaseReference.child(snapshot.getKey()).setValue(null);
-                        }
-                    }
+*/
 
 
                     handler.removeMessages(0);
 
-                    if(!startChat) {
+                    if (!startChat) {
                         startChat = true;
                         Intent intent = new Intent(SubActivity.this, ChatActivity.class);
                         startActivity(intent);
                     }
                     progressDialog.dismiss();
 
-
                 }
-                else if(!alreadyChat&&!backKeyClick&&!thereRoom) {
+
+
+
+             if(!backKeyClick&&!thereRoom) {
                     handlerOn = true;
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -341,10 +389,10 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
                             if (backKeyClick){
                                 handler.removeMessages(0);
-                                //  handler.removeCallbacksAndMessages(null);
-                                //   handler =null;
+                              //  handler.removeCallbacksAndMessages(null);
+                             //   handler =null;
                             }
-                            chatMatching();
+                                chatMatching();
                             Log.e("핸들러 돌아가는중","팽도는헨들러");
                         }
                     }, 1000 );
@@ -361,7 +409,45 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
     }
 
 
+        public void thereHuman(final String gender){
 
+            Log.e("가능?","씹가능");
+            databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child(gender);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String s = "";
+                    final String gender2 = gender;
+                    databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child(gender2);
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        s = snapshot.getValue().toString();
+
+                        if (!s.equals(userId)) {
+                            thereHumanResult = true;
+                            Log.e("가능?","rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+                        }
+                    }
+                    if (thereHumanResult && !thereRoom) {
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            UserModel userModel = snapshot.getValue(UserModel.class);
+                            databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room").child("uid");
+                            result = userModel.uid;
+                            ChatModel chatModel = new ChatModel();
+                            chatModel.uid1 = userId;
+                            chatModel.uid2 = result;
+                            databaseReference.push().setValue(chatModel);
+                            break;
+
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
 
 
 }
