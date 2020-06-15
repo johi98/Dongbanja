@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class UserInfo extends AppCompatActivity {
 
@@ -96,11 +92,11 @@ public class UserInfo extends AppCompatActivity {
             if (group.getId() == R.id.choose) {
                 switch (checkedId) {
                     case R.id.chooseman:
-                        gender = "남";
+                        gender = "man";
                         break;
 
                     case R.id.choosewoman:
-                        gender = "여";
+                        gender = "woman";
                         break;
                 };
             }
@@ -108,7 +104,7 @@ public class UserInfo extends AppCompatActivity {
     };
 
     private void writeNewUser(String userId, String gender, String uid) {
-        User user = new User(gender, uid);
+        UserInfoModel user = new UserInfoModel(gender, uid);
 
         mDatabase.child("UserInfo").child(userId).setValue(user);
     }

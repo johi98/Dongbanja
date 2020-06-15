@@ -1,14 +1,14 @@
 package com.example.dongbanja;
 
-public class User {
+public class UserInfoModel {
     public String gender;
     public String uid;
 
-    public User() {
+    public UserInfoModel() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String gender, String uid) {
+    public UserInfoModel(String gender, String uid) {
         this.gender = gender;
         this.uid = uid;
     }
