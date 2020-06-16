@@ -100,6 +100,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room").child("uid");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -234,16 +235,6 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-    @Override
-    public void onBackPressed() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-            finish();
-
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
-        }
-    }
 
     class MyItemDecoration extends RecyclerView.ItemDecoration{
 

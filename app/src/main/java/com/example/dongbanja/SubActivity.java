@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.AdRequest;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +52,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
     private Button test;
     private TextView textivewDelete;
 
+    private InterstitialAd mInterstitialAd;
 
     private Button button_goChat;
     String name;
@@ -61,8 +70,28 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
     boolean thereHumanResult = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+                                          @Override
+                                          public void onAdClosed() {
+                                              // Load the next interstitial.
+                                              mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                                              Intent intent = new Intent(SubActivity.this, ChatActivity.class);
+                                              startActivity(intent);
+                                          }
+                                      });
 
         //initializing views
         textViewUserEmail = (TextView) findViewById(R.id.textviewUserEmail);
@@ -296,8 +325,13 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                         thereRoom = true;
                         if(!startChat) {
                             startChat = true;
-                            Intent intent = new Intent(SubActivity.this, ChatActivity.class);
-                            startActivity(intent);
+                            if (mInterstitialAd.isLoaded()) {
+                                mInterstitialAd.show();
+
+                            } else {
+                                Log.d("TAG", "The interstitial wasn't loaded yet.");
+                            }
+
                         }
 
 
@@ -315,6 +349,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         databaseReference = firebaseDatabase.getReference();
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String s = "";
@@ -372,10 +407,18 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
                     if (!startChat) {
                         startChat = true;
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show();
+
+                        } else {
+                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                        }
+
                         Intent intent = new Intent(SubActivity.this, ChatActivity.class);
                         startActivity(intent);
                     }
                     progressDialog.dismiss();
+
 
                 }
 
@@ -442,11 +485,15 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
 
+
+
             });
+
         }
 
 
