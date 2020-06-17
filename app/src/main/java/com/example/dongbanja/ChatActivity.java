@@ -69,7 +69,6 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
 
-        //광고
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -78,6 +77,18 @@ public class ChatActivity extends AppCompatActivity {
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                Intent intent = new Intent(ChatActivity.this, SubActivity.class);
+                startActivity(intent);
+            }
+        });
+
+            mInterstitialAd.show();
 
 
         firebaseAuth = FirebaseAuth.getInstance();// FirebaseAuth 인스턴스 생성

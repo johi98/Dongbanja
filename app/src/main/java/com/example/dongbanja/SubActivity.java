@@ -90,8 +90,14 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                                               mInterstitialAd.loadAd(new AdRequest.Builder().build());
                                               Intent intent = new Intent(SubActivity.this, ChatActivity.class);
                                               startActivity(intent);
-                                          }
-                                      });
+    }
+            @Override
+            public void onAdLeftApplication() {
+                // 여따가 큐삭제코드
+            }
+
+        });
+
 
         //initializing views
         textViewUserEmail = (TextView) findViewById(R.id.textviewUserEmail);
@@ -157,6 +163,9 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         }
 
         if (view == test) {// woman에 큐 생성
+
+            Intent intent = new Intent(SubActivity.this, ChatActivity.class);
+            startActivity(intent);
 
             databaseReference = FirebaseDatabase.getInstance().getReference("UserInfo");
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
