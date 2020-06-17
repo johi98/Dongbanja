@@ -60,6 +60,9 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private TextView textView;
     String roomKey ="";
+    String userGender = "";
+    String result = "";
+    String userGender2 = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +97,64 @@ public class ChatActivity extends AppCompatActivity {
         chat_send = (Button) findViewById(R.id.chat_sent);
         img_send = (Button) findViewById(R.id.img_sent);
 
-        // 로그인 화면에서 받아온 채팅방 이름, 유저 이름 저장
-        Intent intent = getIntent();
+
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("UserInfo");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            final String userId = firebaseAuth.getUid();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean thereId = false;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    String s = snapshot.getValue().toString();
+                    UserInfoModel userInfoModel = snapshot.getValue(UserInfoModel.class);
+                    if (s.contains(userId)) {
+
+                        userGender = userInfoModel.gender;
+                        if (userGender.equals("man")){
+                            userGender2 = "woman";
+                        }
+                        else if (userGender.equals("woman")){
+                            userGender2 = "man";
+                        }
+
+
+                    }
+                }//폴문끝
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){
+
+            }
+
+        });
+            Log.e("성별~!~~~~~~~~~~~",userGender);
+            databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child(userGender);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String s = "";
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        s = snapshot.getValue().toString();
+                        if (s.contains(userId)) {
+                            databaseReference.child(snapshot.getKey()).setValue(null);
+                            Log.e("삭삭","제제");
+                        }
+                    }
+
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+
+
+
 
 
 
@@ -173,6 +232,50 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+        databaseReference = FirebaseDatabase.getInstance().getReference("chat_room").child("room").child("uid").child(roomKey);
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String s ="";
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    s = snapshot.getValue().toString();
+                    if(s.contains(userId)){
+                     ChatModel chatModel = snapshot.getValue(ChatModel.class);
+                        chatModel.uid2 = result;
+
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+
+            databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child(userGender2);
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String s ="";
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    s = snapshot.getValue().toString();
+                    if(s.contains(result)){
+                        databaseReference.child(snapshot.getKey()).setValue(null);
+                        Log.e("삭삭2222",s);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
 
 
         img_send.setOnClickListener(new View.OnClickListener() {

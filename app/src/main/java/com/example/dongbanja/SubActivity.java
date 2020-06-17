@@ -371,39 +371,6 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
 
 
-                    /*    //User 큐에서 매칭된 아이디 삭제
-                        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("woman");
-
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                            s = snapshot.getValue().toString();
-                            if(s.contains(userId)){
-
-                                databaseReference.child(snapshot.getKey()).setValue(null);
-
-                            }
-                            if(s.contains(result)){
-                                databaseReference.child(snapshot.getKey()).setValue(null);
-                            }
-                        }
-                        databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child("man");
-
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                          s = snapshot.getValue().toString();
-                            if(s.contains(userId)){
-
-                               databaseReference.child(snapshot.getKey()).setValue(null);
-
-                           }
-                          if(s.contains(result)){
-                              databaseReference.child(snapshot.getKey()).setValue(null);
-                          }
-                        }
-*/
-
-
-                    handler.removeMessages(0);
 
                     if (!startChat) {
                         startChat = true;
@@ -413,11 +380,14 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                         } else {
                             Log.d("TAG", "The interstitial wasn't loaded yet.");
                         }
+                        handler.removeMessages(0);
+                        progressDialog.dismiss();
 
                         Intent intent = new Intent(SubActivity.this, ChatActivity.class);
+
                         startActivity(intent);
                     }
-                    progressDialog.dismiss();
+
 
 
                 }
@@ -454,7 +424,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
         public void thereHuman(final String gender){
 
-            Log.e("가능?","씹가능");
+
             databaseReference = FirebaseDatabase.getInstance().getReference("chat_queue").child(gender);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -467,7 +437,6 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
                         if (!s.equals(userId)) {
                             thereHumanResult = true;
-                            Log.e("가능?","rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
                         }
                     }
                     if (thereHumanResult && !thereRoom) {
@@ -480,9 +449,12 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                             chatModel.uid1 = userId;
                             chatModel.uid2 = result;
                             databaseReference.push().setValue(chatModel);
+
+
                             break;
 
                         }
+
                     }
                 }
 
@@ -494,7 +466,12 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
             });
 
+
         }
+
+
+
+
 
 
 }
