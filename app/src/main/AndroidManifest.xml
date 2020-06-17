@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dongbanja">
+    package="com.firebasedongbanja.dongbanja">
 
     <application
 
@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WaitChat"></activity>
-        <activity android:name=".ChatActivity" />
+        <activity android:name="com.firebasedongbanja.dongbanja.WaitChat"></activity>
+        <activity android:name="com.firebasedongbanja.dongbanja.ChatActivity" />
         <activity android:name=".WaitCaht" />
         <activity android:name=".ChatMsg" />
-        <activity android:name=".FindActivity" />
-        <activity android:name=".SubActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".ProfileReviseActivity" />
-        <activity android:name=".UserInfo" />
+        <activity android:name="com.firebasedongbanja.dongbanja.FindActivity" />
+        <activity android:name="com.firebasedongbanja.dongbanja.SubActivity" />
+        <activity android:name="com.firebasedongbanja.dongbanja.LoginActivity" />
+        <activity android:name="com.firebasedongbanja.dongbanja.ProfileActivity" />
+        <activity android:name="com.firebasedongbanja.dongbanja.ProfileReviseActivity" />
+        <activity android:name="com.firebasedongbanja.dongbanja.UserInfo" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".SingUpActivity">
+        <activity android:name="com.firebasedongbanja.dongbanja.SingUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

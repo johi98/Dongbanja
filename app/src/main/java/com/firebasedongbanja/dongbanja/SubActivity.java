@@ -1,4 +1,4 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 // 아이디 삭제 구현
 //방이 생성되어 있으면 Chat 액티비티로 이동 구현
 import androidx.annotation.NonNull;
@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,10 +33,6 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.AdRequest;
-
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SubActivity extends AppCompatActivity implements View.OnClickListener{
 

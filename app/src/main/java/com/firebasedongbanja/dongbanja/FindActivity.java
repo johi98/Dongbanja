@@ -1,4 +1,4 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

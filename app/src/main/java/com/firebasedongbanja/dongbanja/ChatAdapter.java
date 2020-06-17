@@ -1,8 +1,8 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 
 
 import android.content.Context;
-import android.net.Uri;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Gravity;

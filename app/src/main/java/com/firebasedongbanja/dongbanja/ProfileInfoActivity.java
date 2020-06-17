@@ -1,4 +1,4 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 
 public class ProfileInfoActivity {
     private String name;

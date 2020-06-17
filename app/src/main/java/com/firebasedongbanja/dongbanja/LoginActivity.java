@@ -1,4 +1,4 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,14 +18,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SingUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //정의
+
     EditText editTextEmail;
     EditText editTextPassword;
-    Button buttonSignup;
+    Button buttonSignin;
     TextView textviewSingin;
     TextView textviewMessage;
+    TextView textviewFindPassword;
     ProgressDialog progressDialog;
 
     FirebaseAuth firebaseAuth;
@@ -33,77 +34,82 @@ public class SingUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
             //이미 로그인 되었다면 이 액티비티를 종료함
             finish();
-
+            //그리고 profile 액티비티를 연다.
             startActivity(new Intent(getApplicationContext(), SubActivity.class)); //추가해 줄 ProfileActivity
         }
-        //views 찾기
+
+
+
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textviewSingin= (TextView) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
-        buttonSignup = (Button) findViewById(R.id.buttonSignup);
+        textviewFindPassword = (TextView) findViewById(R.id.textViewFindpassword);
+        buttonSignin = (Button) findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
 
-        //button click event 선언
-        buttonSignup.setOnClickListener(this);
+
+        buttonSignin.setOnClickListener(this);
         textviewSingin.setOnClickListener(this);
+        textviewFindPassword.setOnClickListener(this);
     }
 
-    //Firebse에 유저 추가
-    private void registerUser(){
-        //사용자가 입력하는 email, password를 가져온다.
+    //Login method
+    private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
-        //email과 password가 비었는지 아닌지를 체크 한다.
+
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        //email과 password가 제대로 입력되어 있다면 계속 진행된다.
-        progressDialog.setMessage("등록중입니다. 기다려 주세요...");
+        progressDialog.setMessage("로그인중입니다. 잠시 기다려 주세요...");
         progressDialog.show();
 
-        //아이디 생성
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        //logging in the user
+        firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            finish();
-                            startActivity(new Intent(getApplicationContext(), UserInfo.class));
-                        } else {
-                            //에러발생시
-                            textviewMessage.setText("에러유형\n - 이미 등록된 이메일  \n -암호 최소 6자리 이상 \n - 서버에러");
-                            Toast.makeText(SingUpActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
-                        }
                         progressDialog.dismiss();
+                        if(task.isSuccessful()) {
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), SubActivity.class));
+                        } else {
+                            Toast.makeText(getApplicationContext(), "로그인 실패!", Toast.LENGTH_LONG).show();
+                            textviewMessage.setText("로그인 실패 유형\n - password가 맞지 않습니다.\n -서버에러");
+                        }
                     }
                 });
-
     }
 
-    //button click event
+
+
     @Override
     public void onClick(View view) {
-        if(view == buttonSignup) {
-            //TODO
-            registerUser();
+        if(view == buttonSignin) {
+            userLogin();
         }
-
         if(view == textviewSingin) {
-            //TODO
-            startActivity(new Intent(this, LoginActivity.class)); //추가해 줄 로그인 액티비티
+            finish();
+            startActivity(new Intent(this, SingUpActivity.class));
+        }
+        if(view == textviewFindPassword) {
+            finish();
+            startActivity(new Intent(this, FindActivity.class));
         }
     }
 }
