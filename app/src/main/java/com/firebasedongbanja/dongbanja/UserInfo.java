@@ -1,4 +1,4 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;

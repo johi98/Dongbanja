@@ -1,4 +1,4 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

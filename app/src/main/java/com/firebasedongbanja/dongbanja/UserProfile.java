@@ -1,9 +1,4 @@
-package com.example.dongbanja;
-
-import com.google.firebase.database.Exclude;
-
-import java.util.HashMap;
-import java.util.Map;
+package com.firebasedongbanja.dongbanja;
 
 public class UserProfile {
     public String name, gender, education, phonenumber, length, job, money, family, drunksmoke, living, salary, religion;

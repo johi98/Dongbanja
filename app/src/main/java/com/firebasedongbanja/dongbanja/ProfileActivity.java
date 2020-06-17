@@ -1,14 +1,10 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import androidx.appcompat.app.AppCompatActivity;
 

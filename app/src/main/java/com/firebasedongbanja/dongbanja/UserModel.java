@@ -1,4 +1,4 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 
 public class UserModel {
     // 사용자 기본정보

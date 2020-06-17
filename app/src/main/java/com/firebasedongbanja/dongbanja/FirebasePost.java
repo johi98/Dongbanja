@@ -1,4 +1,4 @@
-package com.example.dongbanja;
+package com.firebasedongbanja.dongbanja;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
